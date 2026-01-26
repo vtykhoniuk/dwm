@@ -63,7 +63,7 @@ index f1d86b2..3ce99fc 100644
  /* function implementations */
  void
  applyrules(Client *c)
-@@ -1331,7 +1331,17 @@ propertynotify(XEvent *e)
+@@ -1289,7 +1320,17 @@ propertynotify(XEvent *e)
  void
  quit(const Arg *arg)
  {
