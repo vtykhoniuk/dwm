@@ -91,6 +91,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", "-c", "st", "-g", "100x25", NULL };
+static const char *incvol[] = {"/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%", NULL};
+static const char *decvol[] = {"/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-1%", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -147,6 +149,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	{ 0,				XF86XK_AudioLowerVolume,spawn,{.v = decvol} },
+	{ 0,				XF86XK_AudioRaiseVolume,spawn,{.v = incvol} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {1} },
 	{ MODKEY|ControlMask,		XK_q,      quit,           {0} }, 
 };
