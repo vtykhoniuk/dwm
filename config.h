@@ -41,8 +41,8 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      	     instance    title    tags mask     isfloating   CenterThisWindow?     monitor */
-	{ "st",              NULL,       NULL,    0,            0,     	     1,		           -1 },
+	/* class	instance	title	tags mask	isfloating	monitor */
+	{ "st-float",	NULL,		NULL,	0,		1,		-1 },
 };
 
 /* layout(s) */
@@ -90,6 +90,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termfloatcmd[]  = { "st", "-c", "st-float", "-g", "100x25", NULL };
 static const char *termcmd[]  = { "st", "-c", "st", "-g", "100x25", NULL };
 static const char *incvol[] = {"/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+1%", NULL};
 static const char *decvol[] = {"/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-1%", NULL};
@@ -98,6 +99,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,		XK_Return, spawn,          {.v = termfloatcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
