@@ -3,5 +3,5 @@
 git restore .
 rm *.rej
 rm *.orig
-rm vanitygaps.c
+rm vanitygaps.c movestack.c
 git status
