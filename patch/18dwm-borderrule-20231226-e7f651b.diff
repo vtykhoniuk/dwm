@@ -10,18 +10,16 @@ Subject: [PATCH] Add a `borderpx` value to `rules` in `config.def.h`.
 
 diff --git a/config.def.h b/config.def.h
 index 9efa774..bdddfa5 100644
-@@ -38,10 +38,10 @@ static const Rule rules[] = {
+@@ -38,9 +38,9 @@ static const Rule rules[] = {
  	 *	WM_CLASS(STRING) = instance, class
  	 *	WM_NAME(STRING) = title
  	 */
--	/* class      	     instance    title    tags mask     isfloating   CenterThisWindow?     monitor */
--	{ "st",              NULL,       NULL,    0,            0,     	     1,		           -1 },
--	{ "Gimp",            NULL,       NULL,    0,            1,           0,                    -1 },
--	{ "Firefox",         NULL,       NULL,    1 << 8,       0,           0,                    -1 },
-+	/* class      	     instance    title    tags mask     isfloating   CenterThisWindow?     monitor  border width*/
-+	{ "st",              NULL,       NULL,    0,            0,     	     1,		           -1, -1 },
-+	{ "Gimp",            NULL,       NULL,    0,            1,           0,                    -1, -1 },
-+	{ "Firefox",         NULL,       NULL,    1 << 8,       0,           0,                    -1, 0 },
+-	/* class      instance    title       tags mask     isfloating   monitor */
+-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++	/* class      instance    title       tags mask     isfloating   monitor    border width*/
++	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        -1 },
++	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        0 },
  };
  
  /* layout(s) */
@@ -29,10 +27,9 @@ diff --git a/dwm.c b/dwm.c
 index f1d86b2..48403c2 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -139,7 +139,8 @@ typedef struct {
+@@ -147,6 +147,7 @@ typedef struct {
  	unsigned int tags;
  	int isfloating;
- 	int CenterThisWindow;
  	int monitor;
 +	int bw;
  } Rule;
@@ -46,10 +43,9 @@ index f1d86b2..48403c2 100644
  	XGetClassHint(dpy, c->win, &ch);
  	class    = ch.res_class ? ch.res_class : broken;
  	instance = ch.res_name  ? ch.res_name  : broken;
-@@ -299,7 +301,9 @@ applyrules(Client *c)
+@@ -300,6 +302,8 @@ applyrules(Client *c)
  		{
  			c->isfloating = r->isfloating;
- 			c->CenterThisWindow = r->CenterThisWindow;
  			c->tags |= r->tags;
 +			if (r->bw != -1)
 +				c->bw = r->bw;
