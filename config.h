@@ -112,8 +112,8 @@ static const char *incvol[] = {"/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_S
 static const char *decvol[] = {"/usr/bin/wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "0.01-", NULL};
 
 static const char scratchpadname[] = "scratchpad";
-//static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, NULL };
-static const char *scratchpadcmd[] = { "ghostty", "--title=scratchpad", "--quit-after-last-window-closed=true", NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, NULL };
+//static const char *scratchpadcmd[] = { "ghostty", "--title=scratchpad", "--quit-after-last-window-closed=true", NULL };
 
 
 #include "movestack.c"
